@@ -6,7 +6,7 @@ Third phase (final) submission of platform GGSEMP for Bachelor Practical Course:
 
 **1. Overview**
 
-The GGSEMP (Germany’s Greatest Sustainable Energy Market Place) platform is a transformative application developed to support the United Nations' Sustainable Development Goal (Goal 7) of ensuring access to affordable and clean energy. As a dynamic marketplace, it connects clients—such as individuals and businesses- with trusted providers of renewable energy solutions. The platform provides detailed insights into various energy sources, showing their availability across different federal states and their pricing. Users can sign in as either clients or providers, enabling efficient collaboration.
+The GGSEMP (Germany’s Greatest Sustainable Energy Market Place) platform is a transformative application developed to support the United Nations' Sustainable Development Goal (Goal 7) of ensuring access to affordable and clean energy. As a dynamic marketplace, it connects clients—such as individuals and businesses- with trusted providers of renewable energy solutions. The platform provides detailed insights into various energy sources. Users can sign in as either clients or providers, enabling efficient collaboration.
 By encouraging teamwork and partnerships, GGSMP empowers everyone to work toward a affordable, cleaner and more sustainable future. It is designed to support global sustainability goals, making energy adoption easier and more effective through simple and innovative solutions.
 
 ---

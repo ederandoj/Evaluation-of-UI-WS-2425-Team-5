@@ -19,8 +19,17 @@ The first phase of the practical course focused on self-learning and getting to 
 
 **Second phase of the practical course**
 
-During the second phase, GGSEMP was initialy developed and designed on Figma, where the user interface, layout, and overall user experience were crafted. The platform's visual components, including the homepage, provider catalogue, map interface etc., were prototyped and iterated upon to ensure a seamless, modern and user-friendly design. 
+During the second phase, GGSEMP was initialy developed and designed on **Figma**, where the user interface, layout, and overall user experience were crafted. The platform's visual components, including the homepage, provider catalogue, map interface etc., were prototyped and iterated upon to ensure a seamless, modern and user-friendly design.
+The second phase was then finalized with **qualitative evaluation** (Heuristic Evaluation and SUS) from 2 other teams of the course. 
 
 ---
 
 **Third phase of the practical course**
+
+During the third phase, GGSEMP's functionalities needed to be extended in order to perform **quantitative evaluation**. Specifically, the map interface was then further developed in HTML, CSS and JavaScript to fulfill such requirements. 10 participants evaluated and took part on the evaluation of the extended map interface of GGSEMP.
+
+---
+
+**Documentation**
+
+All required details, explanations, results of evaluations, references and resources are written and analyzed in the final documentation.

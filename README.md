@@ -12,11 +12,13 @@ By encouraging teamwork and partnerships, GGSMP empowers everyone to work toward
 ---
 
 **2. First phase of the practical course**
+
 The first phase of the practical course focused on self-learning and getting to know the concepts of User-Centered research, divided in three sections. This knowledge was then mirrored into the second and third phase of the practical course. 
 
 ---
 
 **Second phase of the practical course**
+
 During the second phase, GGSEMP was initialy developed and designed on Figma, where the user interface, layout, and overall user experience were crafted. The platform's visual components, including the homepage, provider catalogue, map interface etc., were prototyped and iterated upon to ensure a seamless, modern and user-friendly design. 
 
 ---

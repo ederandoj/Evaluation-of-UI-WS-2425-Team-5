@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         greeting.textContent = `Welcome, ${username}! 👋🏻 GGSEMP is your comprehensive solution for finding sustainable energy resources. Whether you're looking to reduce your carbon footprint, support local economies, or simply turn green, GGSEMP is here to guide you every step of the way. Your solution is just some steps away! 👀`;
     }
     else {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
     }
 });
 

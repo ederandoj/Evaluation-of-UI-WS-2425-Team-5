@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html land="en">
+
+<head>
+    <meta charset = "UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome @ GGSEMP</title>
+    <style>
+
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f4f4f4;
+            transition: background-color 0.3s;
+            background-image: url('idk.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        #logo{
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            z-index: 10;
+        }
+
+        .container{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 8px rbga(0, 0, 0, 0.1);
+            width: 30%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: fixed;
+            left: 0;
+        }
+
+        h2{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label{
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: #45a049;
+        }
+
+        .toggle-form{
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .toggle-form a{
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .toggle-form a:hover{
+            text-decoration: underline;
+        }
+
+        body.dark-mode{
+            background-color: #2c2c2c;
+            color: white;
+        }
+
+        .dark-mode .container{
+            background-color: #333;
+        }
+
+        #dark-mode-toggle{
+            position: fixed;
+            top: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            right: 20px;
+        }
+
+        #dark-mode-toggle:hover{
+            background-color: #45a049;
+        }
+
+        #helper-btn{
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;      
+        }
+
+        #helper-btn:hover{
+            background-color: #45a049;
+        }
+
+        #helper-tooltip{
+            display: none;
+            position: absolute;
+            bottom: 80px;
+            right: 20px;
+            width: 250px;
+            background-color: rgba(0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        #helper-btn:hover+#helper-tooltip{
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <img id="logo" src="logo.png" alt="Logo">
+    <div class="container">
+        <h2 id="form-title"> Log in @ GGSEMP 👋🏻 </h2>
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Please enter your username" required>
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Please enter your password" required>
+
+            <label for="confirm-password" id="confirm-password-label" style="display: none;">Password</label>
+            <input type="password" id="confirm-password" placeholder="Please confirm your password" style="display: none;">
+            <button type="submit">Log in</button>
+        </form>
+        <div class="toggle-form">
+            <p><a href="#" id="toggle-signup">Don't have an account? Sign up</a></p>
+        </div>
+    </div>
+
+    <button id="dark-mode-toggle">🌒</button>
+    <button id="helper-btn">?</button>
+
+    <div id="helper-tooltip">
+        GGSEMP will offer you a variety of providers throughout Germany! Log in or sign up to explore
+        our trusted providers and GGSEMP's innovative platform.🚀
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const toggleSignup = document.getElementById('toggle-signup');
+            const formTitle = document.getElementById('form-title');
+            const formActionButton = loginForm.querySelector('button');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const confirmPasswordLabel = document.getElementById('confirm-password-label');
+
+            let isSignup = false;
+
+            toggleSignup.addEventListener('click', (e) => {
+                e.preventDefault();
+                isSignup = !isSignup;
+
+                if(isSignup){
+                    formTitle.textContent = "Sign up @ GGSEMP 👋🏻";
+                    formActionButton.textContent = "Sign up";
+                    toggleSignup.textContent = "Already have an account? Log in";
+                    confirmPasswordInput.style.display = "block";
+                    confirmPasswordLabel.style.display = "block";
+                } 
+                else {
+                    formTitle.textContent = "Log in @ GGSEMP 👋🏻";
+                    formActionButton.textContent = "Log in";
+                    toggleSignup.textContent = "Don't have an account? Sign up";
+                    confirmPasswordInput.style.display = "none";
+                    confirmPasswordLabel.style.display = "none";
+                }
+            });
+
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if(isSignup){
+                    const confirmPassword = confirmPasswordInput.value;
+                    if(password !== confirmPassword){
+                        alert('Passwords do not match! Please try again.');
+                        return;
+                    }
+                    alert('Account created.');
+                    window.location.href = 'map.html';
+                }
+                else {
+                    if(username && password){
+                        localStorage.setItem('username', username);
+                        window.location.href = 'map.html';
+                    }
+                    else {
+                        alert('Please fill in both fields!');
+                    }
+                }
+            });
+
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const currentMode = document.body.classList.contains('dark-mode') ? '🌖' : '🌒';
+                darkModeToggle.textContent = currentMode;
+            });
+              });
+    </script>
+</body>
+</html>

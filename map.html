@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GGSEMP's Energy Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+<style>
+
+    body{
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        display: flex;
+        height: 100vh;
+        justify-content: flex-start;
+        flex-direction: row;
+        overflow: hidden;
+        background-color: #fff;
+        color: #333;
+    }
+
+    body.dark-mode{
+        background-color: #121212;
+        columns: #e0e0e0;
+    }
+
+    #form-container{
+        position: static;
+        width: 500px;
+        padding: 20px;
+        box-sizing: border-box;
+        background-color: #f4f4f4;
+        border-right: 2px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    h1{
+        margin-left: 0;
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    #greeting{
+        margin-top: 5px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+
+    #criteria-form{
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    #criteria-form label{
+        margin-bottom: 10px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    #criteria-form select, 
+    #criteria-form input, 
+    #criteria-form textarea{
+        margin-bottom: 16px;
+        font-size: 14px;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #criteria-form button{
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+
+    #criteria-form button:hover{
+        background-color: #3a703d;
+    }
+
+    #go-back-btn{
+        color: white;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        background-color: red;
+    }
+
+    #go-back-btn:hover{
+        background-color: rgb(94, 6, 6);
+    }
+
+    #reset-search-btn{
+        color: white;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        background-color: rgb(225, 88, 39);
+    }
+
+    #reset-search-btn:hover{
+        background-color: orange;
+    }
+
+
+    #helper-btn{
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 12px;
+        background-color: rgb(51, 51, 51, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        text-align: center;
+        z-index: 1000;
+    }
+
+     #helper-btn:hover{
+        background-color: rgb(51, 51, 51, 0.9);
+    }
+
+    #helper-tooltip{
+        visibility: hidden;
+        width: auto;
+        max-width: 300px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 1001;
+        white-space: normal;
+    }
+
+    #helper-btn:hover+#helper-tooltip{
+        visibility: visible;
+    }
+
+    #dark-light-toggle{
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        background-color: rgb(51, 51, 51, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    #dark-light-toggle:hover{
+        background-color: rgb(51, 51, 51, 0.9);
+    }
+
+    .tooltip-text{
+        visibility: hidden;
+        width: 150px;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px; 
+        position: absolute;
+        top: 50px;
+        right: 0;
+        z-index: 1;
+    }
+
+     #helper-btn:hover+.tooltip-text{
+        visibility: visible;
+    }
+
+    #map{
+        flex-grow: 1;
+        height: 100vh;
+        width: calc(100% - 450px);
+    }
+
+    #dark-light-toggle{
+        position: fixed;
+        top: 10px;
+        right: 70px;
+        padding: 10px;
+        background-color: rgb(51, 51, 51, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    #dark-light-toggle:hover{
+        background-color: rgba(85, 85, 85, 0.9);
+    }
+
+    #go-to-platform-btn{
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        background-color: rgb(51, 51, 51, 0.8);
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        text-align: center;
+        z-index: 1000;
+    }
+
+    #go-to-platform-btn:hover{
+        background-color: rgba(85, 85, 85, 0.9);
+    }
+
+    #platform-tooltip{
+        visibility: hidden;
+        width: 250px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: fixed;
+        top: 70px;
+        right: 10px;
+        z-index: 1001;
+    }
+
+    #go-to-platform-btn:hover+#platform-tooltip{
+        visibility: visible;
+    }
+
+    body.dark-mode{
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+     body.dark-mode #form-container{
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+
+     body.dark-mode #criteria-form button{
+        background-color: #333;
+    }
+
+     body.dark-mode #criteria-form button:hover{
+        background-color: #555;
+    }
+
+    .price-range-container{
+        display: flex;
+        align-items: normal;
+        gap: 10px;
+    }
+
+    input[type="range"]{
+        width: 70px;
+        height: 1px;
+        background: #ddd;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity .2s;
+        margin: 0;
+        padding: 0;
+    }
+
+    input[type="range"]:hover{
+        opacity: 1;
+    }
+
+    .filter-container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 5px;
+    }
+
+    .label-helper-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .helper{
+        background-color: #4CAF50;
+        color: white;
+        font-size: 14px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .helper:hover::after{
+        content: attr(data-tooltip);
+        position: absolute;
+        right: 100%;
+        top: 50%;
+        line-height: 1.2;
+        transform: translateY(-50%);
+        background-color: #808080;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 5px;
+        max-width: 500px;
+        font-size: 12px;
+        z-index: 1000;
+    }
+</style>    
+</head>
+<body>
+
+    <div id="form-container">
+        <h1>GGSEMP's Provider Selector 🗺️</h1>
+        <p id="greeting"></p>
+
+        <form id="criteria-form">
+
+            <label for="resource">Energy Resource </label>
+            <select id="resource" >
+                <option value="" disabled selected>Selected...</option>
+                <option value="Solar">🌞 Solar</option>
+                <option value="Wind">💨 Wind</option>
+                <option value="Hydro">💧 Hydro</option>
+                <option value="Biofuels">🌽 Biofuels</option>
+                <option value="Geothermal">🌋 Geothermal</option>
+                <option value="H2">🧪 H2</option>
+            </select>
+
+            <label for="region">Region in Germany</label>
+            <select id="region">
+                <option value="" disabled selected>Selected...</option>
+                <option value="Baden - Württemberg">Baden - Württemberg</option>
+                <option value="Bavaria">Bavaria</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Brandenburg">Brandenburg</option>
+                <option value="Bremen">Bremen</option>
+                <option value="Hamburg">Hamburg</option>
+                <option value="Hessen">Hessen</option>
+                <option value="Lower Saxony">Lower Saxony</option>
+                <option value="Mecklenburg - Western Pomerania">Mecklenburg - Western Pomerania</option>
+                <option value="North Rhine - Westphalia">North Rhine - Westphalia</option>
+                <option value="Rhineland-Palatinate">Rhineland - Palatinate</option>
+                <option value="Saarland">Saarland</option>
+                <option value="Saxony">Saxony</option>
+                <option value="Saxony-Anhalt">Saxony - Anhalt</option>
+                <option value="Schleswig - Holstein">Schleswig - Holstein</option>
+                <option value="Thuringia">Thuringia</option>
+            </select>
+
+            <label for="price">Price range (€/kWh)</label>
+            <div class="price-range-container">
+                <input type="range" id="price" name="price" min="0.01" max="1.00" step="0.01" value="0.01"
+                oninput="this.nextElementSibling.value = this.value">
+                <output>0.01</output>
+            </div>
+
+            <label for="purpose">Purpose of purchasing energy</label>
+            <select id="purpose">
+                <option value="" disabled selected>Selected...</option>
+                <option value="Residential">🏠 Residential</option>
+                <option value="Commercial">🏢 Commercial</option>
+                <option value="Industrial">🏭 Industrial</option>
+                <option value="Donation">🎁 Donation</option>
+            </select>
+
+
+            <label for="availability">Availability of purchase</label>
+            <select id="availability">
+                <option value="" disabled selected>Selected...</option>
+                <option value="Immediate">Immediate</option>
+                <option value="within_a_month">Within a month</option>
+                <option value="within_3_months">Within 3 months</option>
+            </select>
+
+            <div class="filter-container">
+                <div class="label-helper-container">
+                    <label for="efficiency">Energy efficiency programs</label>
+                    <span class="helper" data-tooltip="Programs aimed at redcing energy consumption and improving energy efficiency.">?</span>
+                </div>
+                <select id="efficiency">
+                <option value="" disabled selected>Selected...</option>
+                <option value="yes">🟢 Yes</option>
+                <option value="no">🔴 No</option>
+                </select>
+            </div>
+
+            <div class="filter-container">
+                <div class="label-helper-container">
+                    <label for="carbon-offset">Carbon offset programs</label>
+                    <span class="helper"
+                        data-tooltip="Programs that offset carbon emissions by investing in environmental projects.">?</span>
+                </div>
+                <select id="carbon-offset">
+                    <option value="" disabled selected>Selected...</option>
+                    <option value="yes">🟢 Yes</option>
+                    <option value="no">🔴 No</option>
+                </select>
+            </div>
+
+            <div class="filter-container">
+                <div class="label-helper-container">
+                    <label for="community-impact">Commmunity Impact</label>
+                    <span class="helper"
+                        data-tooltip="The positive or negative effects of energy projects on local communities.">?</span>
+                </div>
+                <select id="community-impact">
+                    <option value="" disabled selected>Selected...</option>
+                    <option value="high">🟢 High</option>
+                    <option value="medium">🟠 Medium</option>
+                    <option value="low">🔴 Low</option>
+                </select>
+            </div>
+
+            <label for="sustainabiltiy">Sustainability preferences</label>
+            <textarea id="sustainabiltiy" rows="3" placeholder="E.g., carbon-neutral, renewable only"></textarea>
+
+            <label for="duration">Duration of service (years)</label>
+            <input type="number" id="duration" min="1" placeholder="Enter duration in years">
+
+            <button type="submit">Find Provider</button>
+        </form>
+
+        <button id="reset-search-btn">Reset Search</button>
+
+        <button id="go-back-btn" onclick="window.location.href = 'index.html'">Go Back</button>  
+
+        <button id="helper-btn">?</button>
+        <div id="helper-tooltip" class="tooltip-text">Hover for help message!</div>
+
+        <button id="dark-light-toggle">🌖</button>
+
+        <button id="go-to-platform-btn">🔗</button>
+        <div id="platform-tooltip" class="tooltip-text">Click here to fully use the GGSEMP's innovative platform!🚀</div>
+</div>
+        <div id="map"></div>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="app.js"></script>
+</body>
+</html>

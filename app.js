@@ -85,10 +85,11 @@ const providers = [
     { name: "🌽 Sunland Biofuels", coords: [50.8300, 14.2880], region: "Saxony", resource: "Biofuels", price: 0.40, purpose: "Donation" },
     { name: "🌽 Blue Earth Bio Energy", coords: [53.1135, 8.7704], region: "Bremen", resource: "Biofuels", price: 0.45, purpose: "Industrial" },
     
+    
     { name: "💧 Hydro Future", coords: [53.2490, 8.6210], region: "Bremen", resource: "Hydro", price: 0.16, purpose: "Residential" },
     { name: "💧 River Flow Energy", coords: [50.5000, 8.2000], region: "Hessen", resource: "Hydro", price: 0.18, purpose: "Commercial" },
-    { name: "💧 Blue Stream Power", coords: [58.0740, 11.5810], region: "Bavaria", resource: "Hydro", price: 0.25, purpose: "Donation" },
-    { name: "💧 Aqua Dyn Power", coords: [58.0730, 11.5800], region: "Bavaria", resource: "Hydro", price: 0.08, purpose: "Industrial" },
+    { name: "💧 Blue Stream Power", coords: [50.0745, 10.2350], region: "Bavaria", resource: "Hydro", price: 0.25, purpose: "Donation" },
+    { name: "💧 Aqua Dyn Power", coords: [50.0745, 10.2313], region: "Bavaria", resource: "Hydro", price: 0.08, purpose: "Industrial" },
     { name: "💧 Hydra Nova Systems", coords: [48.4300, 9.2600], region: "Baden - Württemberg", resource: "Hydro", price: 0.07, purpose: "Residential" },
     { name: "💧 Cascade Energy", coords: [48.4970, 9.3780], region: "Baden - Württemberg", resource: "Hydro", price: 0.11, purpose: "Donation" },
     { name: "💧 AquaGrid Power", coords: [53.5559, 10.0153], region: "Hamburg", resource: "Hydro", price: 0.07, purpose: "Industrial" },
@@ -100,7 +101,6 @@ const providers = [
     { name: "💧 Tide Force", coords: [53.2390, 8.5790], region: "Bremen", resource: "Hydro", price: 0.08, purpose: "Industrial" },
     { name: "💧 Hydro Spark", coords: [50.6750, 7.2220], region: "North Rhine - Westphalia", resource: "Hydro", price: 0.07, purpose: "Industrial" },
     { name: "💧 Water Crest Energy", coords: [48.0740, 11.2311], region: "Bavaria", resource: "Hydro", price: 0.09, purpose: "Industrial" },
-    
 ];
 
 providers.forEach(provider => {
